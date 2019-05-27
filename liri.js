@@ -3,10 +3,15 @@
 // add code to read and set any environment variables with the dotenv package:
 require("dotenv").config();
 
+var request = require('request');
+
 // file sync package
 var fs = require ("fs");
 var axios = require("axios");
 var Spotify = require("node-spotify-api");
+
+var moment = require('moment');
+moment().format();
 
 //To acces key information for Spotify
 var spotify = new Spotify(keys.spotify);
@@ -19,6 +24,33 @@ var keys = require("./keys.js");
 // Create variables to be able to pull what is entered in the terminal
 var nodeComandeOne = process.argv[2];
 var nodeComandeTwo = process.argv[3];
+
+UserInputs(nodeComandeOne, nodeComandeTwo);
+
+function UserInputs (nodeComandeOne, nodeComandeTwo) {
+    switch(nodeComandeOne) {
+        case 'concert-this':
+        concertShows(nodeComandeTwo);
+        break;
+
+        case 'spotify-this-song':
+        spotifySong(nodeComandeTwo);
+        break;
+
+        case 'movie-this':
+        movieInfo(nodeComandeTwo);
+        break;
+
+        case 'do-what-it-says':
+        getRandom();
+        break;
+
+        default:
+        logIt("Invalid Instruction");
+        break;
+
+    }
+};
 
 // Spotify comands
 
@@ -59,7 +91,7 @@ function spotifySong (nodeComandeTwo) {
 // Will need to pickup what is entered in the terminal under node comand to then look up the information from the API and out put it onto the terminal
 
 // This will search the Bands in Town Artist Events API ("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp") for an artist and render the following information about each event to the terminal:
-function concertShows (nodeComandeTwo) {
+function concertShows (nodeComandeOne) {
 
     if(action === 'concert-this')
     {
@@ -173,30 +205,5 @@ axios.get(queryUrl).then(
     // spotify-this-song
     // movie-this
     // do-what-it-says
-
-    function switchCase () {
-        switch(action) {
-            case 'concert-this':
-            concertShows(nodeComandeTwo);
-            break;
-
-            case 'spotify-this-song':
-            spotifySong(nodeComandeTwo);
-            break;
-
-            case 'movie-this':
-            movieInfo(nodeComandeTwo);
-            break;
-
-            case 'do-what-it-says':
-            getRandom();
-            break;
-
-            default:
-            logIt("Invalid Instruction");
-            break;
-
-        }
-    };
 
     switchCase();
