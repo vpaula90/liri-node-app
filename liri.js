@@ -10,15 +10,19 @@ var fs = require ("fs");
 var axios = require("axios");
 var Spotify = require("node-spotify-api");
 
+// set up to convert the date on the concert
 var moment = require('moment');
 moment().format();
+
+// API keys in the keys.js file that is actually pulling the spotify key from the .env page
+var keys = require("./keys.js");
+
+
 
 //To acces key information for Spotify
 var spotify = new Spotify(keys.spotify);
 
 
-// API keys in the keys.js file that is actually pulling the spotify key from the .env page
-var keys = require("./keys.js");
 
 
 // Create variables to be able to pull what is entered in the terminal
@@ -46,7 +50,7 @@ function UserInputs (nodeComandeOne, nodeComandeTwo) {
         break;
 
         default:
-        logIt("Invalid Instruction");
+        console.log("Invalid Instruction");
         break;
 
     }
@@ -62,6 +66,7 @@ function spotifySong (nodeComandeTwo) {
         searchSong = "The Sign by Ace of Base";
     } else {
         searchSong = nodeComandeTwo;
+        console.log(searchSong);
     }
 
         spotify.search ({
@@ -72,10 +77,12 @@ function spotifySong (nodeComandeTwo) {
                 console.log("Error Occured:" + error);
                 return;
             } else {
-                console.log("Artist:" + data.tracks.items[0].artist[0].name);
-                console.log("Song:" + data.tracks.items[0].name);
+                console.log(data);
+                console.log("Artist:" + data.tracks.artist);
+                console.log("Song:" + data.tracks.name);
                 console.log("Preview:" + data.tracks.items[3].preview_url);
                 console.log("Album:" + data.tracks.items[0].album.name);
+                // look at these properities for the Spotify API
             
                 }
             });
@@ -93,19 +100,8 @@ function spotifySong (nodeComandeTwo) {
 // This will search the Bands in Town Artist Events API ("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp") for an artist and render the following information about each event to the terminal:
 function concertShows (nodeComandeOne) {
 
-    if(action === 'concert-this')
-    {
-        var concertName="";
-        for (var i=3; i< process.argv.length; i++)
-        {
-            concertName += process.argv[i];
-        }
-            console.log(concertName);
-    }
-    else
-    {
         concertName = nodeComandeTwo;
-    }
+    
 
 var queryURL = "https://rest.bandsintown.com/artists/" + concertName + "/events?app_id=codingbootcamp";
 axios.get(queryURL)   
@@ -113,9 +109,10 @@ axios.get(queryURL)
 .then(function(response) {
 
     for (var i = 0; i< response.data.length; i++){
-        console.log("Venue" + response.data[i].venue.name);
-        console.log("Location" + response.data[i].venue.location);
-        console.log("Date" + response.data[i].venue.date);
+        console.log("Venue: " + response.data[i].venue.name);
+        console.log("Location: " + response.data[i].venue.city);
+        console.log("Date: " + response.data[i].datetime);
+        // lookup api access to fields
 
         }
 
@@ -170,7 +167,7 @@ axios.get(queryUrl).then(
     console.log("Movie Title: " + response.data.Title);
     console.log("Movie Rating: " + response.data.imdbRating);
     console.log("Movie Release Year: " + response.data.Year);
-    console.log("Movie Rotten Tomatoes: " + response.data.Ratings);
+    console.log("Movie Rotten Tomatoes: " + response.data.Ratings[1].value);
     console.log("Country Produced: " + response.data.Country);
     console.log("Movie Language: " + response.data.Language);
     console.log("Movie Plot: " + response.data.Plot);
@@ -206,4 +203,17 @@ axios.get(queryUrl).then(
     // movie-this
     // do-what-it-says
 
-    switchCase();
+function getRandom(){
+    fs.readFile("random.txt", "utf8", function(error,data){
+        if (error){
+            return console.log(error);
+        }
+        console.log(data);
+
+        var dataArr = data.split(",");
+        console.log(dataArr);
+
+        UserInputs(dataArr[0], dataArr[1]);
+
+    })
+}
