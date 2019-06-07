@@ -77,7 +77,7 @@ function spotifySong (nodeComandeTwo) {
                 console.log("Error Occured:" + error);
                 return;
             } else {
-                console.log(data);
+                // console.log(data);
                 console.log("Artist:" + data.tracks.artist);
                 console.log("Song:" + data.tracks.name);
                 console.log("Preview:" + data.tracks.items[3].preview_url);
