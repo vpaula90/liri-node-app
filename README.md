@@ -4,4 +4,4 @@ getting a bunch of errors and still going to work through getting this to work. 
 
 
 Movie Call:
-![Images for Movie Call] (/images/movie.png)
+![text] (/Users/paulavillegas/Desktop/UCLA_BootCamp_Activities/Home_Work/liri-node-app/images/movie.png)
