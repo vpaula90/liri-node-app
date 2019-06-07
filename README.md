@@ -4,4 +4,10 @@ getting a bunch of errors and still going to work through getting this to work. 
 
 
 Movie Call:
-![text] (/Users/paulavillegas/Desktop/UCLA_BootCamp_Activities/Home_Work/liri-node-app/images/movie.png)
+![text] (/images/movie.png)
+
+Concert Call:
+![text](/images/concert.pgn)
+
+Song Call:
+![text] (/images/song.png)
