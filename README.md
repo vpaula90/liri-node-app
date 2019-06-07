@@ -4,10 +4,10 @@ getting a bunch of errors and still going to work through getting this to work. 
 
 
 Movie Call:
-[text](/images/movie.png)
+![text](/images/movie.png)
 
 Concert Call:
 ![text](/images/concert.png)
 
 Song Call:
-[text](/images/song.png)
+![text](/images/song.png)
